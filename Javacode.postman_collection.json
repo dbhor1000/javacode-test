@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "f44bddf4-66b4-4f3b-a266-01dbc68b5cd1",
+		"name": "Javacode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32249696"
+	},
+	"item": [
+		{
+			"name": "DepositOrWithdraw",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"walletUUID\": \"1ad33264-449d-4ecc-b217-83b525599552\",\r\n    \"operationType\": \"DEPOSIT\",\r\n    \"amount\": 1000.0\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8181/api/v1/wallet",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"v1",
+						"wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAccountInformationByUUID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8181/api/v1/wallets/1ad33264-449d-4ecc-b217-83b525599552",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"v1",
+						"wallets",
+						"1ad33264-449d-4ecc-b217-83b525599552"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
