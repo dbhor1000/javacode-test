@@ -36,11 +36,13 @@ public class BankAccountServiceImpl implements BankAccountService {
         if (bankAccountFound != null) {
             if (updateBalance.getOperationType().equals(DepositOrWithdraw.DEPOSIT)) {
                 bankAccountRepository.updateBalance(updateBalance.getWalletUUID(), updateBalance.getAmount());
+                bankAccountFound.setAccountBalance(bankAccountFound.getAccountBalance() + updateBalance.getAmount());
             } else if (updateBalance.getOperationType().equals(DepositOrWithdraw.WITHDRAW)) {
                 if(bankAccountFound.getAccountBalance() < updateBalance.getAmount()){
                     return null;
                 }
                 bankAccountRepository.updateBalance(updateBalance.getWalletUUID(), (-updateBalance.getAmount()));
+                bankAccountFound.setAccountBalance(bankAccountFound.getAccountBalance() - updateBalance.getAmount());
             }
             return bankAccountMapping.BankAccountToGetWalletInfoMap(bankAccountFound);
         } else {
