@@ -7,9 +7,11 @@ import com.javacode.javacode_test.mapping.BankAccountMappingImpl;
 import com.javacode.javacode_test.model.BankAccount;
 import com.javacode.javacode_test.repository.BankAccountRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+@Transactional
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
 
@@ -33,14 +35,13 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         if (bankAccountFound != null) {
             if (updateBalance.getOperationType().equals(DepositOrWithdraw.DEPOSIT)) {
-                bankAccountFound.setAccountBalance(bankAccountFound.getAccountBalance() + updateBalance.getAmount());
+                bankAccountRepository.updateBalance(updateBalance.getWalletUUID(), updateBalance.getAmount());
             } else if (updateBalance.getOperationType().equals(DepositOrWithdraw.WITHDRAW)) {
                 if(bankAccountFound.getAccountBalance() < updateBalance.getAmount()){
                     return null;
                 }
-                bankAccountFound.setAccountBalance(bankAccountFound.getAccountBalance() - updateBalance.getAmount());
+                bankAccountRepository.updateBalance(updateBalance.getWalletUUID(), (-updateBalance.getAmount()));
             }
-            bankAccountRepository.save(bankAccountFound);
             return bankAccountMapping.BankAccountToGetWalletInfoMap(bankAccountFound);
         } else {
             return null;
